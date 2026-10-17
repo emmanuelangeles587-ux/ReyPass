@@ -1,0 +1,271 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profiles",
+      "description": "User profile information and global settings",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "activeOrganizationId": { "type": "string" },
+        "defaultRole": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "displayName"]
+    },
+    "organizations": {
+      "title": "Organizations",
+      "description": "Enterprise tenant accounts in REYWALLET",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "legalName": { "type": "string" },
+        "taxId": { "type": "string" },
+        "currency": { "type": "string" },
+        "ownerUserId": { "type": "string" },
+        "plan": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "currency", "ownerUserId"]
+    },
+    "memberships": {
+      "title": "Organization Memberships",
+      "description": "RBAC memberships mapping users to organizations and roles",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "userId": { "type": "string" },
+        "role": { "type": "string" },
+        "status": { "type": "string" },
+        "invitedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "userId", "role"]
+    },
+    "customers": {
+      "title": "Customers CRM",
+      "description": "CRM customer accounts",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "name": { "type": "string" },
+        "company": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "taxId": { "type": "string" },
+        "address": { "type": "string" },
+        "status": { "type": "string" },
+        "walletAddress": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "name", "email"]
+    },
+    "invoices": {
+      "title": "Invoices",
+      "description": "Financial invoices for goods and services",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "number": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "subtotal": { "type": "number" },
+        "tax": { "type": "number" },
+        "total": { "type": "number" },
+        "paidAmount": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "items": { "type": "array" },
+        "paymentRequestId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "number", "customerId", "total", "status"]
+    },
+    "payment_requests": {
+      "title": "Payment Requests",
+      "description": "Unified payment requests supporting Fiat, Manual, and Web3",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "invoiceId": { "type": "string" },
+        "requestNumber": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string" },
+        "supportedMethods": { "type": "array" },
+        "web3Address": { "type": "string" },
+        "web3Network": { "type": "string" },
+        "expiresAt": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "invoiceId", "requestNumber", "amount"]
+    },
+    "payments": {
+      "title": "Payments",
+      "description": "Confirmed payments across all sources",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "invoiceId": { "type": "string" },
+        "paymentRequestId": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "sourceType": { "type": "string" },
+        "provider": { "type": "string" },
+        "transactionHash": { "type": "string" },
+        "network": { "type": "string" },
+        "walletAddress": { "type": "string" },
+        "status": { "type": "string" },
+        "verificationStatus": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "invoiceId", "amount", "sourceType", "status"]
+    },
+    "ledger": {
+      "title": "Financial Ledger",
+      "description": "Double-entry financial accounting journal",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "referenceId": { "type": "string" },
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "type": { "type": "string" },
+        "category": { "type": "string" },
+        "source": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "description", "amount", "type"]
+    },
+    "web3_wallets": {
+      "title": "Web3 Wallets",
+      "description": "Wallets associated with organizations and users",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "userId": { "type": "string" },
+        "address": { "type": "string" },
+        "network": { "type": "string" },
+        "chainId": { "type": "number" },
+        "walletType": { "type": "string" },
+        "isPrimary": { "type": "boolean" },
+        "verifiedAt": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "address", "network"]
+    },
+    "blockchain_transactions": {
+      "title": "Blockchain Transactions",
+      "description": "Verified on-chain transactions",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "txHash": { "type": "string" },
+        "network": { "type": "string" },
+        "chainId": { "type": "number" },
+        "fromAddress": { "type": "string" },
+        "toAddress": { "type": "string" },
+        "amount": { "type": "number" },
+        "symbol": { "type": "string" },
+        "status": { "type": "string" },
+        "confirmations": { "type": "number" },
+        "blockNumber": { "type": "number" },
+        "relatedInvoiceId": { "type": "string" },
+        "relatedPaymentId": { "type": "string" },
+        "verificationStatus": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "txHash", "network", "fromAddress", "toAddress"]
+    },
+    "digital_credentials": {
+      "title": "Digital Credentials & Smart Assets",
+      "description": "Verifiable digital credentials and smart assets with QR/NFC links",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "credentialId": { "type": "string" },
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "recipientName": { "type": "string" },
+        "recipientIdentifier": { "type": "string" },
+        "issuer": { "type": "string" },
+        "status": { "type": "string" },
+        "verificationUrl": { "type": "string" },
+        "onChainRef": { "type": "string" },
+        "issuedAt": { "type": "string" },
+        "expiresAt": { "type": "string" }
+      },
+      "required": ["organizationId", "credentialId", "type", "title", "status"]
+    },
+    "audit_logs": {
+      "title": "Audit Logs",
+      "description": "Security and compliance audit stream",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "details": { "type": "string" },
+        "ipAddress": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["organizationId", "action"]
+    },
+    "products": {
+      "title": "Shop Products",
+      "description": "ReyShop e-commerce and POS inventory catalog",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "sku": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "stock": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sku", "name", "price", "stock"]
+    },
+    "product_reviews": {
+      "title": "Product Reviews",
+      "description": "Customer ratings and engagement reviews",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "rating": { "type": "number" },
+        "title": { "type": "string" },
+        "comment": { "type": "string" },
+        "verifiedPurchase": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "customerName", "rating", "comment"]
+    },
+    "shop_orders": {
+      "title": "Shop Orders",
+      "description": "E-Commerce orders with shipment tracking and invoice bindings",
+      "type": "object",
+      "properties": {
+        "organizationId": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "total": { "type": "number" },
+        "currency": { "type": "string" },
+        "paymentStatus": { "type": "string" },
+        "fulfillmentStatus": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["orderNumber", "customerId", "total", "paymentStatus"]
+    }
+  }
+}
+

@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #090a0b;
+  --panel: #121416;
+  --panel2: #171a1d;
+  --line: #2a2f33;
+  --text: #eef1ed;
+  --muted: #8c9790;
+  --lime: #c7f83a;
+  --purple: #a78bfa;
+  --cyan: #4de4f2;
+  --danger: #fb7185;
+  --amber: #fbbf24;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: 'Work Sans', 'Plus Jakarta Sans', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+  }
+  body:before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 5% 0%, rgba(199,248,58,.055), transparent 28%), radial-gradient(circle at 95% 85%, rgba(167,139,250,.06), transparent 28%);
+    z-index: 10;
+  }
+  code, pre, .font-mono {
+    font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.animate-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+

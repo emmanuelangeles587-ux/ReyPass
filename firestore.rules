@@ -1,0 +1,125 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isUser(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Check if user belongs to the target organization
+    function isMemberOfOrg(orgId) {
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/memberships/$(request.auth.uid + "_" + orgId));
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isUser(userId);
+    }
+
+    // Organizations collection
+    match /organizations/{orgId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isMemberOfOrg(orgId) || (isAuthenticated() && resource.data.ownerUserId == request.auth.uid);
+    }
+
+    // Memberships collection
+    match /memberships/{membershipId} {
+      allow read: if isAuthenticated();
+      allow create, update, delete: if isAuthenticated();
+    }
+
+    // Multi-tenant Org Scoped Collections
+    match /customers/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /quotes/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /invoices/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /payment_requests/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /payments/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /ledger/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /bank_accounts/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /bank_transactions/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /workflows/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /notifications/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /credit_applications/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /web3_wallets/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /blockchain_transactions/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /digital_credentials/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /audit_logs/{docId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+    }
+
+    match /provider_connections/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /webhook_events/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /products/{docId} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    match /product_reviews/{docId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if isAuthenticated();
+    }
+
+    match /shop_orders/{docId} {
+      allow read, write: if isAuthenticated();
+    }
+  }
+}
+

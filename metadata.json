@@ -1,0 +1,6 @@
+{
+  "name": "REYWALLET — Financial Operations Platform",
+  "description": "Enterprise-grade financial operations platform for businesses, entrepreneurs, and organizations with CRM, Invoicing, Ledger, AI Assistant, and Webhooks.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
