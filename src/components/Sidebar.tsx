@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   LayoutDashboard, Users, FileText, Receipt, CreditCard, 
   BookOpen, Building2, Bot, Workflow, ShieldCheck, 
-  BarChart3, Landmark, FileCheck, HelpCircle, LogOut, Sparkles, Wallet, ShoppingBag, Cpu, Award, QrCode
+  BarChart3, Landmark, FileCheck, HelpCircle, LogOut, Sparkles, Wallet, ShoppingBag, Cpu, Award, QrCode, Activity, Settings
 } from 'lucide-react';
 import { UserProfile } from '../hooks/useSupabaseAuth';
 
@@ -24,6 +24,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'customers', label: 'Clientes & CRM', icon: Users },
+    { id: 'account_settings', label: 'Mi Cuenta & Perfil', icon: Settings, highlight: true },
+    { id: 'spei_monitor', label: 'Monitor de Cobros', icon: Activity, highlight: true },
     { id: 'reyplace_pos', label: 'Reyplace.Shop (POS)', icon: QrCode, highlight: true },
     { id: 'shop', label: 'ReyShop Store & POS', icon: ShoppingBag },
     { id: 'loyalty', label: 'Lealtad & Gamificación', icon: Award, highlight: true },
@@ -57,10 +59,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <div>
             <h1 className="font-extrabold tracking-tight text-white flex items-center gap-1.5">
-              REYWALLET
-              <span className="text-[10px] bg-lime-500/20 text-lime-400 font-mono px-1.5 py-0.5 rounded border border-lime-500/30">PRO</span>
+              REYPASS
+              <span className="text-[10px] bg-cyan-500/20 text-cyan-300 font-mono px-1.5 py-0.5 rounded border border-cyan-500/30">PRO</span>
             </h1>
-            <p className="text-xs text-slate-400 font-mono">Financial Operations</p>
+            <p className="text-xs text-slate-400 font-mono">Economía Digital</p>
           </div>
         </div>
       </div>

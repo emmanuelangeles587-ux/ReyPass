@@ -43,7 +43,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full bg-lime-500/10 border border-lime-500/30 text-lime-400 font-mono text-xs">
-              MODO PRODUCTIVO • SUPABASE RLS
+              REYPASS ECONOMÍA DIGITAL • SUPABASE RLS
             </span>
           </div>
           <h2 className="text-2xl font-extrabold text-white">Centro de Operaciones Financieras</h2>

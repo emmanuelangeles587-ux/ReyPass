@@ -4,6 +4,7 @@ import {
   X, ShieldAlert, CheckCircle, Info, Sparkles, Activity, EyeOff
 } from 'lucide-react';
 import { useAntiOverlaySecurity } from '../hooks/useAntiOverlaySecurity';
+import { useWorkspaceIntegrity } from '../hooks/useWorkspaceIntegrity';
 
 interface WorkspaceIntegrityEmblemProps {
   userEmail?: string;
@@ -42,6 +43,13 @@ export const WorkspaceIntegrityEmblem: React.FC<WorkspaceIntegrityEmblemProps> =
     verifyIntegrityNow,
     clearThreats
   } = useAntiOverlaySecurity(userEmail);
+
+  const {
+    isDomainAuthorized,
+    isIframeBlocked,
+    antiPhishingToken,
+    activeDomain
+  } = useWorkspaceIntegrity(userEmail);
 
   // Sub-pixel steganographic animated micro-noise to prevent screenshot spoofing
   useEffect(() => {
@@ -219,6 +227,16 @@ export const WorkspaceIntegrityEmblem: React.FC<WorkspaceIntegrityEmblemProps> =
                 <div className="flex items-center justify-between text-[11px] text-slate-400">
                   <span>Marca Temporal Activa (Heartbeat UTC):</span>
                   <span className="font-mono text-slate-300 font-semibold">{securityTimestamp}</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-900">
+                  <span>Token Anti-Robo de Identidad:</span>
+                  <span className="font-mono text-cyan-400 font-bold">{antiPhishingToken}</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-slate-400">
+                  <span>Dominio Autorizado (Anti-Iframe):</span>
+                  <span className={`font-mono font-bold ${isDomainAuthorized && !isIframeBlocked ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    {isDomainAuthorized && !isIframeBlocked ? `AUTORIZADO (${activeDomain})` : 'BLOQUEADO'}
+                  </span>
                 </div>
               </div>
 

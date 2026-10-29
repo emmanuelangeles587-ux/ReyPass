@@ -21,6 +21,8 @@ import { VerificationView } from './components/VerificationView';
 import { EmmanAiGovernanceView } from './components/EmmanAiGovernanceView';
 import { LoyaltyRewardsView } from './components/LoyaltyRewardsView';
 import { ReyplaceShopPosView } from './components/ReyplaceShopPosView';
+import { SpeiCollectionMonitorView } from './components/SpeiCollectionMonitorView';
+import { AccountSettingsView } from './components/AccountSettingsView';
 import { AuthModal } from './components/AuthModal';
 
 import { useOnlineStatus } from './hooks/useOnlineStatus';
@@ -345,6 +347,12 @@ export default function App() {
                 onSelectCustomer={(c) => setSelectedCustomer(c)}
               />
             )
+          )}
+          {currentView === 'account_settings' && (
+            <AccountSettingsView userEmail={userProfile?.email || 'soporte.reyplace@gmail.com'} />
+          )}
+          {currentView === 'spei_monitor' && (
+            <SpeiCollectionMonitorView userEmail={userProfile?.email || 'soporte.reyplace@gmail.com'} />
           )}
           {currentView === 'reyplace_pos' && (
             <ReyplaceShopPosView />
